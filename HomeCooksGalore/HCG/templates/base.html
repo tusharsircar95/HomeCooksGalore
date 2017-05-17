@@ -1,0 +1,60 @@
+<html>
+<head>
+    <title>Home Cooks Galore</title>
+    {% load staticfiles %}
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+
+</head>
+<body background="images/background.png">
+<nav class="navbar navbar-inverse bg-inverse navbar-toggleable-md">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#topNavBar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/HCG">HCG</a>
+
+    <div class="collapse navbar-collapse" id="topNavBar">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item {% block foodsActive %}{% endblock %}">
+            <a class="nav-link" href="/HCG/foods"> <i class="fa fa-pie-chart fa-sm"></i>&nbsp Foods<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item {% block drinksActive %}{% endblock %}">
+            <a class="nav-link" href="/HCG/drinks"><i class="fa fa-glass fa-sm"></i>&nbsp Drinks </a>
+          </li>
+        </ul>
+
+        <form class="form-inline navbar-form my-2 my-lg-0 navbar-left" action="/HCG/" method="get">
+          <input class="form-control mr-sm-2" name="q" id="q" type="text" placeholder="Search">
+          <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+
+        <ul class="navbar-nav  navbar-right">
+            <li class="nav-item active">
+            <a class="nav-link" href="#">{% block username %}{% endblock %}<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item {% block addDishActive %}{% endblock %}">
+            <a class="nav-link" href="/HCG/addDish"><i class="fa fa-plus fa-sm"></i>&nbsp
+Add Recipie<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/HCG/logout"><i class="fa fa-power-off fa-sm"></i>&nbsp Logout</a>
+          </li>
+        </ul>
+
+  </div>
+</nav>
+
+{% block body %}
+{% endblock %}
+
+</body>
+</html>

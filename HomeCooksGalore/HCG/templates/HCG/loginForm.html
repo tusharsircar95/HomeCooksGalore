@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>Home Cooks Galore</title>
+    {% load staticfiles %}
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+
+</head>
+<body background="veggies.jpg">
+ <div class="container col-lg-offset-3 col-lg-4x" style="margin-top:100px;">
+
+      <form class="form-signin" action="{{ form_url }}" method="post">
+          {% csrf_token %}
+        <h1 class="form-signin-heading text-center" style="margin-bottom:50px;">HOME COOKS GALORE</h1>
+
+          {% for field in form %}
+          <div class="form-group text-center">
+
+                <label class="control-label col-lg-4" style="width:100%;">{{field.label_tag}}</label>
+              {{field}}
+            </div>
+
+          {% endfor %}
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">{{ submitText }}</button>
+      </form>
+
+    </div>
+
+
+</body>
+</html>
+

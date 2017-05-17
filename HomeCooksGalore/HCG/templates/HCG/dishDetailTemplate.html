@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block username %} Welcome {{username}}! {% endblock %}
+{% block body %}
+
+<div class="card" style="margin=200x;">
+        <img src="{{dish.dishCoverImage.url}}" class="img-responsive">
+        <div class="card-block">
+        <h4 class="card-title">{{dish.dishName}} by ( {{dish.dishPublisher.username}} )</h4>
+            <p class="card-text"><pre>{{dish.dishSteps}} </pre></p>
+        </div>
+</div>
+{% endblock %}
