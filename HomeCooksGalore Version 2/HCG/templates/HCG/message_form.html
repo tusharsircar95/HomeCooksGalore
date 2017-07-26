@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container-fluid" style="padding:20px;">
+    <div class="row">
+        <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-horizontal" action="/HCG/createMessage/" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                          <div class="form-group">
+                            <label for="message">Type message here: </label>
+                            <textarea class="form-control" id="message" name="message" rows="5"></textarea>
+                          </div>
+                            <input type="hidden" id="receiverID" name="receiverID" value="{{ receiverID }}">
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

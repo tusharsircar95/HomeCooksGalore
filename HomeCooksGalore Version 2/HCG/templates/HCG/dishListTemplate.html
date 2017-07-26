@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block username %} Welcome {{username}}! {% endblock %}
+{% block body %}
+
+<div class="page-header col-sm-12 text-center" style="padding:20px;">
+    <h1>{{ title }}</h1>
+</div>
+<br>
+{% if error_message %}
+    <p><strong>{{error_message}}</strong></p>
+{% endif %}
+<div class="container">
+
+    <div class="row">
+        <div class="card-columns" style="display:inline-block;">
+            {% for dish in dishList %}
+
+    <div class="card" style="margin-left=200x;">
+        <img src="{{dish.dishCoverImage.url}}" class="img-fluid">
+        <div class="card-block">
+        <h4 class="card-title">{{dish.dishName}}( {{dish.dishCategory}} )</h4>
+        <p class="card-text">by {{dish.dishPublisher.username}}</p>
+
+        <div class="text-center">
+        <!-- View Details -->
+        <a href="/HCG/{{dish.id}}" class="btn btn-primary">View Details</a>
+
+        <!-- Delete Dish -->
+        {% if username == dish.dishPublisher.username %}
+        <form action="/HCG/deleteDish/{{dish.id}}/" method="post" style="display: inline;">
+            {% csrf_token %}
+            <input type="hidden" name="album_id" value="{{ album.id }}" />
+            <button type="submit" class="btn btn-default btn-sm">
+                <i class="fa fa-trash fa-2x"></i>
+            </button>
+        </form>
+
+        <!-- Edit Dish -->
+        <form action="/HCG/updateDish/{{dish.id}}/" method="get" style="display: inline;">
+            {% csrf_token %}
+            <input type="hidden" name="album_id" value="{{ album.id }}" />
+            <button type="submit" class="btn btn-default btn-sm">
+                <i class="fa fa-edit fa-2x"></i>
+            </button>
+        </form>
+        </div>
+        {% endif %}
+
+        </div>
+    </div>
+
+
+
+    {% endfor %}
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}

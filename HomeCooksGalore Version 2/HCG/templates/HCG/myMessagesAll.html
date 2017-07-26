@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block username %} Welcome {{username}}! {% endblock %}
+{% block myProfile %} active {% endblock %}
+
+
+
+{% block body %}
+
+<br>
+<h2 style="text-align:center;padding:10px;">Conversation with {{ otherUsername }}</h2>
+<div class="container" >
+    {% for message in messages %}
+        {% if message.sender.username == username %}
+            <div class="card text-right card-outline-info" style="width: 70rem;margin:10px;">
+        {% endif %}
+        {% if message.sender.username != username %}
+            <div class="card text-left card-outline-secondary" style="width: 70rem;margin:10px;">
+        {% endif %}
+
+  <div class="card-block">
+      {% if message.sender.username == username %}
+            <h4 class="card-title">You</h4>
+        {% endif %}
+        {% if message.sender.username != username %}
+            <h4 class="card-title">{{ message.sender.username }}</h4>
+        {% endif %}
+
+    <p class="card-text">{{ message.message }}</p>
+    <p class="card-text"><small class="text-muted">{{ message.timestamp.time }} , {{ message.timestamp.date }}</small></p>
+  </div>
+</div>
+    {% endfor %}
+
+    <a href="/HCG/draftMessage/{{ pk }}" class="btn btn-primary float-right">Reply</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block username %} Welcome {{username}}! {% endblock %}
+{% block body %}
+
+<div class="container-fluid" style="margin:20px">
+    <div class="row">
+        <div class="col-sm-10">
+            <h2 class="display-3"> {{ dish.dishName }} </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-10">
+            <h2><small>by <a href="/HCG/profile/?q={{dish.dishPublisher.username}}">{{dish.dishPublisher.username}}</a></small></h2>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-sm-8 offset-sm-2">
+            <img src="{{dish.dishCoverImage.url}}" class="img-fluid">
+            <div class="card card-block">
+            <p><pre class="lead">{{dish.dishSteps}} </pre></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

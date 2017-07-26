@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block username %} Welcome {{username}}! {% endblock %}
+{% block foodsActive %} {{ foodsActive }} {% endblock %}
+{% block drinksActive %} {{ drinksActive }} {% endblock %}
+{% block scripting %}
+    <script type="text/javascript">
+        $(function(){
+            $(".likeButton").click(function()
+            {
+                var self = this;
+                $.ajax({
+                    url : '/HCG/ajax/likeUnlike/',
+                    data : {
+                        'dishID' : this.value,
+                    },
+                    dataType : 'json',
+                    success : function(data)
+                    {
+                        if(data.responseText == 'liked')
+                        {
+                            self.innerHTML = "<i class=\"fa fa-thumbs-up fa-2x\" ></i>"
+                            document.getElementById("ratingDisplay" + self.value).innerHTML = "Rating: " + data.newRating;
+                        }
+                        else
+                        {
+                            self.innerHTML = "<i class=\"fa fa-thumbs-o-up fa-2x\" ></i>";
+                            document.getElementById("ratingDisplay" + self.value).innerHTML = "Rating: " + data.newRating;
+                        }
+                    }
+
+                });
+            });
+
+
+
+
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+
+<div class="page-header col-sm-12 text-center" style="padding:20px;">
+    <h1 id="text">{{ title }}</h1>
+</div>
+<br>
+{% if error_message %}
+    <p><strong>{{error_message}}</strong></p>
+{% endif %}
+<div class="container">
+
+    <div class="row">
+        <div class="card-columns" style="display:inline-block;">
+            {% for dishLikePair in dishLikePairs %}
+
+    <div class="card" style="margin:200x;">
+        <img src="{{dishLikePair.0.dishCoverImage.url}}" class="img-fluid" style="">
+        <div class="card-block">
+        <h4 class="card-title">{{dishLikePair.0.dishName}}( {{dishLikePair.0.dishCategory}} )</h4>
+        <p class="card-text">by {{dishLikePair.0.dishPublisher.username}}</p>
+
+        <div class="text-center">
+        <!-- View Details -->
+        <a href="/HCG/{{dishLikePair.0.id}}" class="btn btn-primary">View Details</a>
+
+         <button value="{{dishLikePair.0.id}}" class="btn btn-default btn-sm likeButton">
+             {% if dishLikePair.1 == 0 %}
+                    <i class="fa fa-thumbs-o-up fa-2x"></i>
+            {% endif %}
+            {% if dishLikePair.1 == 1 %}
+                    <i class="fa fa-thumbs-up fa-2x"></i>
+            {% endif %}
+         </button>
+
+        <!-- Delete Dish -->
+        {% if username == dishLikePair.0.dishPublisher.username %}
+        <form action="/HCG/deleteDish/{{dishLikePair.0.id}}/" method="post" style="display: inline;">
+            {% csrf_token %}
+            <input type="hidden" name="album_id" value="" />
+            <button type="submit" class="btn btn-default btn-sm">
+                <i class="fa fa-trash fa-2x"></i>
+            </button>
+        </form>
+
+        <!-- Edit Dish -->
+        <form action="/HCG/updateDish/{{dishLikePair.0.id}}/" method="get" style="display: inline;">
+            {% csrf_token %}
+            <input type="hidden" name="album_id" value="{{ album.id }}" />
+            <button type="submit" class="btn btn-default btn-sm">
+                <i class="fa fa-edit fa-2x"></i>
+            </button>
+        </form>
+        </div>
+        {% endif %}
+
+        <h2 style="text-align:center;padding:5px;" id="ratingDisplay{{dishLikePair.0.id}}" >Rating: {{dishLikePair.0.dishRating}}</h2>
+        </div>
+    </div>
+
+
+
+    {% endfor %}
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}
